@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.noactivityproject.databinding.ItemOfMyListBinding
+import com.squareup.picasso.Picasso
 
 class MyAdapter: Adapter<MyAdapter.MyViewHolder>() {
 
@@ -12,6 +13,7 @@ class MyAdapter: Adapter<MyAdapter.MyViewHolder>() {
 
     fun setData(newData: List<String>) {
         myData = newData
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -19,17 +21,18 @@ class MyAdapter: Adapter<MyAdapter.MyViewHolder>() {
         return MyViewHolder(binding)
     }
 
-    override fun getItemCount() = Integer.MAX_VALUE
+    override fun getItemCount() = myData.size
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(myData[1])
+        holder.bind(myData[position])
     }
 
     class MyViewHolder(
         private val binding: ItemOfMyListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(dataItem: String) {
-            binding.textItem.text = dataItem
+            Picasso.get().load(dataItem).into(binding.itemImage);
+
         }
     }
 }

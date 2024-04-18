@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.noactivityproject.databinding.FragmentFirstBinding
 import com.example.noactivityproject.ui.adapters.MyAdapter
+import com.example.noactivityproject.ui.network.ApiClient
 
 class FirstFragment: Fragment() {
     private var binding: FragmentFirstBinding? = null
@@ -24,6 +25,10 @@ class FirstFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val networkClient = ApiClient()
+        networkClient.initClient()
+
         binding?.fragmentButton?.setOnClickListener {
             Log.i("MY_TAG", "My message with additional information about my application")
         }
@@ -32,6 +37,13 @@ class FirstFragment: Fragment() {
         val myAdapter: MyAdapter = MyAdapter()
         binding?.myList?.adapter = myAdapter
 
-        myAdapter.setData(listOf("String1", "Other string", "Third string"))
+        networkClient.getPicturesList { pictureList ->
+            Log.i("MY_TAG", "My dog picture list contains ${pictureList?.size}")
+            if (pictureList != null) {
+                myAdapter.setData(pictureList)
+            }
+        }
+
+//        myAdapter.setData(listOf("String1", "Other string", "Third string"))
     }
 }
