@@ -1,4 +1,4 @@
-package com.example.noactivityproject.ui.network
+package com.example.noactivityproject.network
 
 import android.util.Log
 import okhttp3.OkHttpClient

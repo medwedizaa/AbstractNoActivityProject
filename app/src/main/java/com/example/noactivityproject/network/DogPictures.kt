@@ -1,4 +1,4 @@
-package com.example.noactivityproject.ui.network
+package com.example.noactivityproject.network
 
 data class DogPictures(
     val message: List<String>,

@@ -1,4 +1,4 @@
-package com.example.noactivityproject.ui.network
+package com.example.noactivityproject.network
 
 import retrofit2.Call
 import retrofit2.http.GET

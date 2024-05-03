@@ -6,12 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.noactivityproject.R
 import com.example.noactivityproject.databinding.FragmentFirstBinding
-import com.example.noactivityproject.ui.adapters.MyAdapter
-import com.example.noactivityproject.ui.network.ApiClient
+import com.example.noactivityproject.adapters.MyAdapter
+import com.example.noactivityproject.network.ApiClient
 
-class FirstFragment: Fragment() {
+class FirstFragment(
+    private val listener: NavigationListener
+): Fragment() {
     private var binding: FragmentFirstBinding? = null
 
     override fun onCreateView(
@@ -44,6 +49,9 @@ class FirstFragment: Fragment() {
             }
         }
 
-//        myAdapter.setData(listOf("String1", "Other string", "Third string"))
+        myAdapter.setCallback { url ->
+            Log.i("MY_TAG", "The item was clicked with address: $url")
+            listener.openDogDetail(imageUrl = url)
+        }
     }
 }
